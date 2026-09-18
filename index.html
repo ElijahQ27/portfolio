@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elijah Que Portfolio</title>S
+<meta name="description" content="Elijah Que Portfolio">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F4EFF8;
+    --bg-soft: #E9DEFA;
+    --surface: #FFFFFF;
+    --text: #2B2136;
+    --text-muted: #4A4156;
+    --line: #2B2136;
+    
+    --primary: #9D75E3;       
+    --primary-deep: #6F42C1;  
+    --accent-yellow: #F3B700; 
+    --accent-pink: #E06497;   
+    --accent-purple: #8A4BAC;
+
+    --bird-head: #F3B700;
+    --bird-cheek: #F26419;
+    --bird-wing: #A8A3B5;
+    --bird-belly: #FFFFFF;
+    --bird-eye: #2B2136;
+    --bird-beak: #D9A05B;
+    
+    --shadow-color: #2B2136;
+    --font-display: 'Press Start 2P', 'Courier New', monospace;
+    --font-body: 'Quicksand', system-ui, -apple-system, Segoe UI, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #1A1525;
+      --bg-soft: #241E33;
+      --surface: #2D2542;
+      --text: #F0EBF5;
+      --text-muted: #BDB4CA;
+      --line: #F0EBF5;
+      --primary: #B28DFF;
+      --primary-deep: #D4BFFF;
+      --accent-yellow: #FFC933;
+      --accent-pink: #FF85A1;
+      --accent-purple: #8A4BAC;
+      --bird-belly: #E2E2E2;
+      --shadow-color: #0D0A12;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #1A1525;
+    --bg-soft: #241E33;
+    --surface: #2D2542;
+    --text: #F0EBF5;
+    --text-muted: #BDB4CA;
+    --line: #F0EBF5;
+    --primary: #B28DFF;
+    --primary-deep: #D4BFFF;
+    --accent-yellow: #FFC933;
+    --accent-purple: #8A4BAC;
+    --accent-pink: #FF85A1;
+    --bird-belly: #E2E2E2;
+    --shadow-color: #0D0A12;
+    color-scheme: dark;
+  }
+  :root[data-theme="light"]{
+    --bg: #F4EFF8;
+    --bg-soft: #E9DEFA;
+    --surface: #FFFFFF;
+    --text: #2B2136;
+    --text-muted: #4A4156;
+    --line: #2B2136;
+    --primary: #9D75E3;       
+    --primary-deep: #6F42C1;  
+    --accent-yellow: #F3B700; 
+    --accent-pink: #E06497;
+    --accent-purple: #8A4BAC;
+    --bird-belly: #FFFFFF;
+    --shadow-color: #2B2136;
+    color-scheme: light;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:var(--primary-deep); font-weight: 600; }
+  :root[data-theme="dark"] a{ color:var(--primary); }
+  @media (prefers-color-scheme:dark){ a{ color:var(--primary); } }
+
+  ::selection{ background:var(--accent-yellow); color:#2B2136; }
+
+  :focus-visible{
+    outline:3px solid var(--accent-yellow);
+    outline-offset:2px;
+  }
+
+  img{ max-width:100%; }
+  h1,h2,h3{ margin:0 0 .5em; font-weight:700; }
+  .wrap{ max-width:760px; margin:0 auto; padding:0 20px; }
+
+  .topbar{
+    position:fixed;
+    top:14px;
+    right:14px;
+    z-index:60;
+    display:flex;
+    gap:8px;
+  }
+  .toggle-btn{
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:.85rem;
+    background:var(--surface);
+    color:var(--text);
+    border:2px solid var(--line);
+    box-shadow:3px 3px 0 var(--shadow-color);
+    padding:8px 10px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .toggle-btn:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 var(--shadow-color); }
+
+  .dock{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:96px;
+    background:var(--bg-soft);
+    border-right:3px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:22px;
+    z-index:50;
+    padding:20px 0;
+  }
+  .dock-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    text-decoration:none;
+    color:var(--text);
+    font-size:.62rem;
+    letter-spacing:.02em;
+    font-weight:600;
+  }
+  .dock-swatch{
+    width:22px;
+    height:22px;
+    border:2px solid var(--line);
+    box-shadow:2px 2px 0 var(--shadow-color);
+  }
+  .dock-item:hover .dock-swatch, .dock-item:focus-visible .dock-swatch{
+    transform:translate(-2px,-2px);
+    box-shadow:4px 4px 0 var(--shadow-color);
+  }
+  .dock-swatch{ transition:transform .12s ease, box-shadow .12s ease; }
+
+  main{ margin-left:96px; padding-bottom:40px; }
+
+  @media (max-width:720px){
+    .dock{
+      left:0; right:0; bottom:0; top:auto;
+      width:auto; height:64px;
+      flex-direction:row;
+      border-right:none;
+      border-top:3px solid var(--line);
+      justify-content:space-evenly;
+      padding:0;
+      gap:0;
+    }
+    .dock-item{ font-size:.55rem; }
+    main{ margin-left:0; padding-bottom:88px; }
+    .topbar{ top:10px; right:10px; }
+  }
+
+  .hero{
+    min-height:min(640px, 92vh);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 20px 40px;
+    gap:18px;
+  }
+  .hero-eyebrow{
+    font-family:var(--font-display);
+    font-size:.6rem;
+    color:var(--primary-deep);
+    background:var(--surface);
+    border:2px solid var(--line);
+    padding:6px 10px;
+    display:inline-block;
+  }
+  .hero h1{
+    font-family:var(--font-display);
+    font-size:clamp(1.4rem, 5vw, 2.1rem);
+    line-height:1.5;
+    margin:8px 0 0;
+  }
+  .hero p.tagline{
+    color:var(--text-muted);
+    font-size:1.05rem;
+    font-weight:600;
+    margin:0;
+  }
+  .hero-cta{
+    display:flex;
+    gap:12px;
+    margin-top:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .btn{
+    font-family:var(--font-body);
+    font-weight:700;
+    text-decoration:none;
+    color:var(--text);
+    background:var(--surface);
+    border:2px solid var(--line);
+    box-shadow:4px 4px 0 var(--shadow-color);
+    padding:10px 18px;
+    cursor:pointer;
+    font-size:.95rem;
+    transition:transform .12s ease, box-shadow .12s ease;
+    display:inline-block;
+  }
+  .btn:hover{ transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--shadow-color); }
+  .btn:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 var(--shadow-color); }
+  .btn.primary{ background:var(--accent-yellow); color:#2B2136;}
+  .btn.ghost{ background:transparent; }
+
+  .scroll-cue{
+    margin-top:26px;
+    font-size:.7rem;
+    color:var(--text-muted);
+    animation:bob 2.2s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(6px);} }
+
+  .mascot-stage{
+    position:relative;
+    width:216px;
+    height:264px;
+    margin-bottom:-6px;
+  }
+  .mascot{
+    position:absolute;
+    left:50%;
+    top:20px;
+    width:72px;
+    height:88px;
+    transform:translateX(-50%) scale(3);
+    transform-origin:top center;
+    animation:mascot-idle 3.6s ease-in-out infinite;
+  }
+  @keyframes mascot-idle{
+    0%,100%{ transform:translateX(-50%) scale(3) translateY(0); }
+    50%{ transform:translateX(-50%) scale(3) translateY(-4px); }
+  }
+
+  .mascot-bird {
+    position:absolute;
+    left:32px; 
+    top:8px;
+    width:8px;
+    height:8px;
+    background:var(--bird-head); 
+    box-shadow:
+      0 8px 0 var(--bird-head),
+      -8px 16px 0 var(--bird-head), 0 16px 0 var(--bird-head), 8px 16px 0 var(--bird-head),
+      -16px 24px 0 var(--bird-head), -8px 24px 0 var(--bird-eye), 0 24px 0 var(--bird-head), 8px 24px 0 var(--bird-eye), 16px 24px 0 var(--bird-head),
+      -16px 32px 0 var(--bird-cheek), -8px 32px 0 var(--bird-head), 0 32px 0 var(--bird-beak), 8px 32px 0 var(--bird-head), 16px 32px 0 var(--bird-cheek),
+      -24px 40px 0 var(--bird-wing), -16px 40px 0 var(--bird-wing), -8px 40px 0 var(--bird-belly), 0 40px 0 var(--bird-belly), 8px 40px 0 var(--bird-belly), 16px 40px 0 var(--bird-wing), 24px 40px 0 var(--bird-wing),
+      -24px 48px 0 var(--bird-wing), -16px 48px 0 var(--bird-wing), -8px 48px 0 var(--bird-belly), 0 48px 0 var(--bird-belly), 8px 48px 0 var(--bird-belly), 16px 48px 0 var(--bird-wing), 24px 48px 0 var(--bird-wing),
+      -16px 56px 0 var(--bird-wing), -8px 56px 0 var(--bird-belly), 0 56px 0 var(--bird-belly), 8px 56px 0 var(--bird-belly), 16px 56px 0 var(--bird-wing),
+      -8px 64px 0 var(--bird-beak), 8px 64px 0 var(--bird-beak);
+  }
+
+  .mascot-note{
+    position:absolute; left:48px; top:12px; width:4px; height:4px;
+    background:var(--accent-pink);
+    border-radius:50%;
+    animation:ping 2.4s ease-out infinite;
+  }
+  @keyframes ping{
+    0%{ transform:scale(1) translateY(0); opacity:.9; }
+    70%{ transform:scale(2.6) translateY(-10px); opacity:0; }
+    100%{ opacity:0; }
+  }
+  
+  .mascot.bounced{ animation:mascot-jump .4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  @keyframes mascot-jump{
+    0%{ transform:translateX(-50%) scale(3) translateY(0); }
+    40%{ transform:translateX(-50%) scale(3) translateY(-16px); }
+    100%{ transform:translateX(-50%) scale(3) translateY(0); }
+  }
+  .mascot-caption{
+    font-size:.75rem;
+    color:var(--text-muted);
+    margin-top:2px;
+  }
+
+  section.panel{
+    max-width:760px;
+    margin:0 auto 52px;
+    padding:0 20px;
+  }
+  .window{
+    background:var(--surface);
+    border:3px solid var(--line);
+    box-shadow:7px 7px 0 var(--shadow-color);
+  }
+  .window-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:9px 14px;
+    border-bottom:3px solid var(--line);
+    font-family:var(--font-display);
+    font-size:.62rem;
+    color:#20271F;
+  }
+  .window-bar .dots{ display:flex; gap:5px; }
+  .window-bar .dots span{
+    width:9px; height:9px;
+    border:2px solid var(--line);
+    display:block;
+  }
+  .window-body{ padding:28px; }
+  @media (max-width:560px){ .window-body{ padding:20px; } }
+
+  .bar-about{ background:var(--primary); color: #FFF; }
+  .bar-about .dots span { border-color: #FFF; }
+  .bar-faq{ background:var(--primary); color: #FFF; }
+  .bar-faq .dots span { border-color: #FFF; }
+  .bar-links{ background:var(--primary-deep); color:#FFF; }
+  .bar-links .dots span{ border-color:#FFF; }
+  
+  .bar-play{ background:var(--accent-pink); }
+  .bar-work{ background:var(--accent-yellow); }
+  .bar-contact{ background:var(--accent-yellow); }
+
+  h2.section-title{
+    font-family:var(--font-display);
+    font-size:.95rem;
+    line-height:1.6;
+    margin-bottom:20px;
+  }
+
+  .about-top{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+  }
+  .avatar{
+    width:64px; height:64px;
+    background:var(--primary);
+    border:3px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--font-display);
+    font-size:.85rem;
+    color:#FFF;
+    flex:0 0 auto;
+  }
+  .about-name{ font-weight:700; font-size:1.1rem; }
+  .about-role{ color:var(--text-muted); font-size:.92rem; }
+
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .tag{
+    font-size:.78rem;
+    font-weight:700;
+    padding:5px 10px;
+    border:2px solid var(--line);
+    background:var(--bg-soft);
+  }
+  .tag.yellow{ background:var(--accent-yellow); color:#2B2136; }
+  .tag.pink{ background:var(--accent-pink); color:#2B2136; }
+  .tag.purple{ background:var(--accent-purple); color:#2B2136}
+
+  .facts{
+    margin-top:22px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:520px){ .facts{ grid-template-columns:1fr; } }
+  .facts h3{
+    font-size:.68rem;
+    font-family:var(--font-display);
+    color:var(--text-muted);
+    margin-bottom:8px;
+  }
+  .facts p, .facts li{ font-size:.92rem; }
+  .facts ul{ margin:0; padding-left:1.1em; }
+
+  .music-game{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+  .piano{
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .piano-key{
+    width: 40px;
+    height: 110px;
+    background: var(--surface);
+    border: 3px solid var(--line);
+    box-shadow: 3px 3px 0 var(--shadow-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+  .piano-key:active, .piano-key.active{
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--shadow-color);
+    background: var(--bg-soft);
+    color: var(--text);
+  }
+  
+  .piano-key:nth-child(1):active, .piano-key:nth-child(1).active{ background: var(--primary); color: #fff;}
+  .piano-key:nth-child(2):active, .piano-key:nth-child(2).active{ background: var(--accent-yellow); color: #2B2136;}
+  .piano-key:nth-child(3):active, .piano-key:nth-child(3).active{ background: var(--accent-pink); color: #2B2136;}
+  .piano-key:nth-child(4):active, .piano-key:nth-child(4).active{ background: var(--primary-deep); color: #fff;}
+  .piano-key:nth-child(5):active, .piano-key:nth-child(5).active{ background: var(--primary); color: #fff;}
+  .piano-key:nth-child(6):active, .piano-key:nth-child(6).active{ background: var(--accent-yellow); color: #2B2136;}
+  .piano-key:nth-child(7):active, .piano-key:nth-child(7).active{ background: var(--accent-pink); color: #2B2136;}
+
+  .project{
+    border:2px solid var(--line);
+    background:var(--bg-soft);
+    padding:18px;
+    margin-bottom:16px;
+  }
+  .project:last-child{ margin-bottom:0; }
+  .project-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .project h3{ font-size:1.02rem; margin:0; }
+  .project-link{ font-size:.82rem; font-weight:700; white-space:nowrap; }
+  .project p{ margin:8px 0 10px; color:var(--text-muted); font-size:.92rem; }
+
+  .link-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:12px;
+  }
+  @media (max-width:480px){ .link-grid{ grid-template-columns:1fr; } }
+  .link-card{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:2px solid var(--line);
+    background:var(--bg-soft);
+    padding:12px 14px;
+    text-decoration:none;
+    color:var(--text);
+    font-weight:700;
+    font-size:.92rem;
+    transition:transform .12s ease, box-shadow .12s ease;
+    box-shadow:0 0 0 var(--shadow-color);
+  }
+  .link-card:hover{ transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--shadow-color); }
+  .link-dot{ width:10px; height:10px; border:2px solid var(--line); flex:0 0 auto; }
+  .link-note{ margin-top:16px; font-size:.82rem; color:var(--text-muted); }
+
+  details{
+    border:2px solid var(--line);
+    background:var(--bg-soft);
+    margin-bottom:10px;
+    padding:0;
+  }
+  details:last-child{ margin-bottom:0; }
+  summary{
+    padding:13px 16px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:.94rem;
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  summary::-webkit-details-marker{ display:none; }
+  summary::after{
+    content:"+";
+    font-family:var(--font-display);
+    font-size:.9rem;
+  }
+  details[open] summary::after{ content:"–"; }
+  details p{ margin:0; padding:0 16px 16px; color:var(--text-muted); font-size:.92rem; }
+
+  .contact-email{
+    font-weight:700;
+    font-size:1.02rem;
+    margin-bottom:18px;
+  }
+  form{ display:flex; flex-direction:column; gap:14px; }
+  label{ font-size:.82rem; font-weight:700; display:flex; flex-direction:column; gap:6px; }
+  input, textarea{
+    font-family:var(--font-body);
+    font-size:.95rem;
+    padding:10px 12px;
+    border:2px solid var(--line);
+    background:var(--surface);
+    color:var(--text);
+  }
+  textarea{ resize:vertical; min-height:100px; }
+  .form-note{ font-size:.78rem; color:var(--text-muted); margin:2px 0 0; }
+  .form-status{ font-size:.85rem; font-weight:700; color:var(--primary-deep); min-height:1.2em; }
+
+  footer{
+    margin-left:96px;
+    text-align:center;
+    padding:30px 20px 50px;
+    font-size:.8rem;
+    color:var(--text-muted);
+  }
+  @media (max-width:720px){ footer{ margin-left:0; padding-bottom:110px; } }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <button class="toggle-btn" id="themeToggle" aria-label="Toggle dark mode">
+      <span id="themeIcon" aria-hidden="true">🌙</span><span id="themeLabel">dark</span>
+    </button>
+  </div>
+
+  <nav class="dock" aria-label="Primary">
+    <a class="dock-item" href="#about"><span class="dock-swatch" style="background:var(--primary)"></span>about</a>
+    <a class="dock-item" href="#work"><span class="dock-swatch" style="background:var(--accent-yellow)"></span>work</a>
+    <a class="dock-item" href="#links"><span class="dock-swatch" style="background:var(--primary-deep)"></span>links</a>
+    <a class="dock-item" href="#faq"><span class="dock-swatch" style="background:var(--primary)"></span>faq</a>
+    <a class="dock-item" href="#contact"><span class="dock-swatch" style="background:var(--accent-yellow)"></span>contact</a>
+    <a class="dock-item" href="#play"><span class="dock-swatch" style="background:var(--accent-pink)"></span>bored?</a>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="mascot-stage">
+        <div class="mascot" id="mascot" role="img" aria-label="Pippin, a blocky pixel front-facing cockatiel, bobbing happily">
+          <div class="mascot-bird"></div>
+          <div class="mascot-note" aria-hidden="true"></div>
+        </div>
+      </div>
+      <p class="mascot-caption">this is Helga, my desktop bird — click to say hi :]</p>
+      <span class="hero-eyebrow">Stay the course. You will make it someday.</span>
+      <h1>hi, i'm elijah —<br>i like creating stuff</h1>
+      <p class="tagline">Web Developer &amp; Artist</p>
+      <div class="hero-cta">
+        <a class="btn ghost" href="#work">see my work</a>
+        <a class="btn ghost" href="#contact">say hello</a>
+      </div>
+      <div class="scroll-cue">↓ scroll down ↓</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="panel" id="about">
+      <div class="window">
+        <div class="window-bar bar-about">
+          <span>about.exe</span>
+          <span class="dots"><span></span><span></span><span></span></span>
+        </div>
+        <div class="window-body">
+          <div class="about-top">
+            <div class="avatar" aria-hidden="true">EQ</div>
+            <div>
+              <div class="about-name">Elijah Que</div>
+              <div class="about-role">Web Developer</div>
+            </div>
+          </div>
+          <p>hey! i'm elijah — i am a computer engineer.</p>
+          <p>I find joy in seeing my creative ideas come to life through code.</p>
+          <div class="tag-row">
+            <span class="tag pink">HTML</span>
+            <span class="tag yellow">CSS</span>
+            <span class="tag purple">JavaScript</span>
+            <span class="tag">T-SQL</span>
+            <span class="tag">Azure</span>
+          </div>
+          <div class="facts">
+            <div>
+              <h3>education</h3>
+              <p>B.S. in Computer Engineering<br>Currently 4th Year</p>
+            </div>
+            <div>
+              <h3>also into</h3>
+              <ul>
+                <li>game development</li>
+                <li>music composition</li>
+                <li>traditional &amp; digital illustration</li>
+                <li>graphic design</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="panel" id="work">
+      <div class="window">
+        <div class="window-bar bar-work">
+          <span>work/</span>
+          <span class="dots"><span></span><span></span><span></span></span>
+        </div>
+        <div class="window-body">
+          <h2 class="section-title">a few things i've made</h2>
+
+          <div class="project">
+            <div class="project-head">
+              <h3>Jesus Victorious Fellowship Website</h3>
+              <a class="project-link" href="https://jvf-taupe.vercel.app/">view project →</a>
+            </div>
+            <p>A website I made for my local church.</p>
+            <div class="tag-row">
+              <span class="tag">HTML</span><span class="tag">CSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LINKS -->
+    <section class="panel" id="links">
+      <div class="window">
+        <div class="window-bar bar-links">
+          <span>links.txt</span>
+          <span class="dots"><span></span><span></span><span></span></span>
+        </div>
+        <div class="window-body">
+          <h2 class="section-title">find me elsewhere</h2>
+          <div class="link-grid">
+            <a class="link-card" href="https://github.com/ElijahQ27"><span class="link-dot" style="background:var(--primary)"></span>github</a>
+            <a class="link-card" href="https://www.linkedin.com/in/elijah-que-74150a279/"><span class="link-dot" style="background:var(--accent-pink)"></span>linkedin</a>
+            <a class="link-card" href="https://web.facebook.com/ElijahQue27"><span class="link-dot" style="background:var(--accent-pink)"></span>faceboook</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="panel" id="faq">
+      <div class="window">
+        <div class="window-bar bar-faq">
+          <span>faq.log</span>
+          <span class="dots"><span></span><span></span><span></span></span>
+        </div>
+        <div class="window-body">
+          <h2 class="section-title">frequently asked</h2>
+
+          <details open>
+            <summary>what kind of work can you do?</summary>
+            <p>I have built complete web applications from the ground up. I have also designed UI/UX with my experience in game development.</p>
+          </details>
+          <details>
+            <summary>what do I work with?</summary>
+            <p>I work with HTML, CSS, JavaScript, and T-SQL.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!--CONTACT-->
+    <section class="panel" id="contact">
+      <div class="window">
+        <div class="window-bar bar-contact">
+          <span>contact.new</span>
+          <span class="dots"><span></span><span></span><span></span></span>
+        </div>
+        <div class="window-body">
+          <h2 class="section-title">say hello</h2>
+          <p class="contact-email">to: lawrenceelijahquee@gmail.com</p>
+          <form id="contactForm">
+            <label>your name
+              <input type="text" name="name" required>
+            </label>
+            <label>your email
+              <input type="email" name="email" required>
+            </label>
+            <label>your message
+              <textarea name="message" required></textarea>
+            </label>
+            <button class="btn primary" type="submit" style="align-self:flex-start;">send message</button>
+            <p class="form-status" id="formStatus" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!--GAME-->
+    <section class="panel" id="play">
+      <div class="window">
+        <div class="window-bar bar-play">
+          <span>chirp.exe</span>
+          <span class="dots"><span></span><span></span><span></span></span>
+        </div>
+        <div class="window-body">
+          <div class="music-game">
+            <h2 class="section-title" style="margin-bottom:0;">make Helga sing</h2>
+            <p style="color:var(--text-muted); font-size:0.92rem; margin:0;">click or use keys 1-7 to chirp a tune.</p>
+            <div class="piano" id="piano">
+              <button class="piano-key" data-freq="523.25" aria-label="Chirp C note">1</button>
+              <button class="piano-key" data-freq="587.33" aria-label="Chirp D note">2</button>
+              <button class="piano-key" data-freq="659.25" aria-label="Chirp E note">3</button>
+              <button class="piano-key" data-freq="698.46" aria-label="Chirp F note">4</button>
+              <button class="piano-key" data-freq="783.99" aria-label="Chirp G note">5</button>
+              <button class="piano-key" data-freq="880.00" aria-label="Chirp A note">6</button>
+              <button class="piano-key" data-freq="987.77" aria-label="Chirp B note">7</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </main>
+
+  <footer>
+    © <span id="year"></span> Elijah Que.
+  </footer>
+
+<script>
+(function(){
+  // ---- theme toggle ----
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  var icon = document.getElementById('themeIcon');
+  var label = document.getElementById('themeLabel');
+
+  function systemPrefersDark(){
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function applyIcon(isDark){
+    icon.textContent = isDark ? '☀️' : '🌙';
+    label.textContent = isDark ? 'light' : 'dark';
+  }
+  function currentIsDark(){
+    var explicit = root.getAttribute('data-theme');
+    if(explicit === 'dark') return true;
+    if(explicit === 'light') return false;
+    return systemPrefersDark();
+  }
+
+  try{
+    var saved = localStorage.getItem('theme');
+    if(saved === 'dark' || saved === 'light'){
+      root.setAttribute('data-theme', saved);
+    }
+  }catch(e){}
+
+  applyIcon(currentIsDark());
+
+  btn.addEventListener('click', function(){
+    var next = currentIsDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    applyIcon(next === 'dark');
+    try{ localStorage.setItem('theme', next); }catch(e){}
+  });
+
+  // ---- footer year ----
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- musical minigame (Web Audio API Bird Chirp Engine) ----
+  var audioCtx = null;
+  function playNote(frequency) {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    var oscillator = audioCtx.createOscillator();
+    var gainNode = audioCtx.createGain();
+    
+    oscillator.type = 'sine';
+
+    oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(frequency * 1.6, audioCtx.currentTime + 0.1);
+
+    gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime + 0.02);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    oscillator.start(audioCtx.currentTime);
+    oscillator.stop(audioCtx.currentTime + 0.15);
+  }
+
+  var mascot = document.getElementById('mascot');
+  var mascotStage = document.querySelector('.mascot-stage');
+  
+  mascot.addEventListener('click', function(){
+    mascot.classList.remove('bounced');
+    void mascot.offsetWidth;
+    mascot.classList.add('bounced');
+    playNote(1046.50); 
+  });
+  mascot.style.cursor = 'pointer';
+
+  var keys = document.querySelectorAll('.piano-key');
+
+  keys.forEach(function(key) {
+    key.addEventListener('click', function() {
+      var freq = parseFloat(this.getAttribute('data-freq'));
+      playNote(freq);
+
+      this.classList.add('active');
+      setTimeout(() => {
+        this.classList.remove('active');
+      }, 150);
+
+      mascot.classList.remove('bounced');
+      void mascot.offsetWidth;
+      mascot.classList.add('bounced');
+    });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.repeat) return; 
+    
+    const keyMap = { '1': 0, '2': 1, '3': 2, '4': 3, '5': 4, '6': 5, '7': 6 };
+    if (e.key in keyMap) {
+      keys[keyMap[e.key]].click(); 
+    }
+  });
+
+  // ---- contact form -> mailto ----
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new FormData(form);
+    var name = (data.get('name') || '').toString();
+    var email = (data.get('email') || '').toString();
+    var message = (data.get('message') || '').toString();
+    var subject = encodeURIComponent('hello from ' + name);
+    var body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+    var mailto = 'mailto:hello@example.com?subject=' + subject + '&body=' + body;
+    window.location.href = mailto;
+    status.textContent = 'opening your email app…';
+  });
+})();
+</script>
+</body>
+</html>
